@@ -22,7 +22,7 @@ export class HeroeServiceService {
     return this.httpClient.get<heroe>(this.urlApi+"/"+id)
   }
   //post
-  postHeroe(Heroe:heroe):Observable<heroe>{
+  postHeroe(Heroe:any):Observable<heroe>{
     return this.httpClient.post<heroe>(this.urlApi,Heroe)
   }
   //put
@@ -33,10 +33,5 @@ export class HeroeServiceService {
   deleteHeroe(id:number):Observable<heroe>{
     return this.httpClient.delete<heroe>(this.urlApi+"/"+id)
   }
-
-  addHeroe(heroe: any) {
-    return this.httpClient.post<{ estado: number, mensaje: string }>('/api/heroes', heroe);
-  }
-  
 
 }

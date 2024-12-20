@@ -1,15 +1,22 @@
 import { Component, inject } from '@angular/core';
 import { HeroeServiceService } from '../../services/heroe-service.service';
-
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-heroe-list',
-  imports: [],
+  standalone:true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './heroe-list.component.html',
-  styleUrls: ['./heroe-list.component.css'] // Corrección: styleUrls en lugar de styleUrl
+  styleUrls: ['./heroe-list.component.css']
 })
 export class HeroeListComponent {
   heroeService = inject(HeroeServiceService);
   listadoHeroes: any[] = [];
+  nombre: string = '';
+  poder: string = '';
+  universo: string = '';
+  debilidad: string = '';
+
 
   constructor() {
     this.CargarHeroes();
@@ -32,28 +39,25 @@ export class HeroeListComponent {
   }
 
   AgregarHeroe() {
-    // Obtiene los valores de los inputs del DOM
-    const nombre = (document.getElementById('inputNombre') as HTMLInputElement).value;
-    const poder = (document.getElementById('inputPoder') as HTMLInputElement).value;
-    const universo = (document.getElementById('inputUniverso') as HTMLInputElement).value;
-    const debilidad = (document.getElementById('inputDebilidad') as HTMLInputElement).value;
-
-    // Crea un objeto con los datos del héroe
     const nuevoHeroe = {
-      nombre,
-      poder,
-      universo,
-      debilidad,
+      nombre: this.nombre,
+      poder: this.poder,
+      universo: this.universo,
+      debilidad: this.debilidad,
     };
+    
+    this.heroeService.postHeroe(nuevoHeroe).subscribe((data) => {
+        if (data.estado === 1) {
+            alert('Héroe agregado con éxito');
+            this.CargarHeroes(); // Actualiza el listado de héroes
+        } else {
+            alert('Error al agregar el héroe');
+        }
+      });
 
-    // Llama al servicio para agregar el héroe
-    this.heroeService.addHeroe(nuevoHeroe).subscribe((data) => {
-      if (data.estado === 1) {
-        alert('Héroe agregado con éxito');
-        this.CargarHeroes(); // Actualiza el listado de héroes
-      } else {
-        alert('Error al agregar el héroe');
-      }
-    });
+        this.nombre = '';
+        this.poder = '';
+        this.universo = '';
+        this.debilidad = '';
   }
 }

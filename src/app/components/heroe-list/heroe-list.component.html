@@ -1,63 +1,62 @@
 <div class="container">
-    <h1>Listado de heroes</h1>
+  <h1>Listado de heroes</h1>
 
-    <div class="mb-3 row">
-      <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputNombre">
-      </div>
+  <div class="mb-3 row">
+    <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputNombre" [(ngModel)]="nombre">
     </div>
-    <div class="mb-3 row">
-      <label for="inputPoder" class="col-sm-2 col-form-label">Poder</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputPoder">
-      </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="inputPoder" class="col-sm-2 col-form-label">Poder</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputPoder" [(ngModel)]="poder">
     </div>
-    <div class="mb-3 row">
-      <label for="inputUniverso" class="col-sm-2 col-form-label">Universo</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputUniverso">
-      </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="inputUniverso" class="col-sm-2 col-form-label">Universo</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputUniverso" [(ngModel)]="universo">
     </div>
-    <div class="mb-3 row">
-      <label for="inputDebilidad" class="col-sm-2 col-form-label">Debilidad</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputDebilidad">
-      </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="inputDebilidad" class="col-sm-2 col-form-label">Debilidad</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputDebilidad" [(ngModel)]="debilidad">
     </div>
-    
+  </div>
+  
 
-    <button class="btn btn-success" (click)="AgregarHeroe()">Nuevo</button>
+  <button class="btn btn-success" (click)="AgregarHeroe()">Nuevo</button>
 
-    <table class="table">
-        <thead>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Poder</th>
+          <th scope="col">Universo</th>
+          <th scope="col">Debilidad</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+          @for (heroe of listadoHeroes; track heroe.id) {            
           <tr>
-            <th scope="col">id</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Poder</th>
-            <th scope="col">Universo</th>
-            <th scope="col">Debilidad</th>
-            <th scope="col">Acciones</th>
+        
+              <th scope="row">{{ heroe.id }}</th>
+              <td>{{ heroe.nombre }}</td>
+              <td>{{ heroe.poder }}</td>
+              <td>{{ heroe.universo }}</td>
+              <td>{{ heroe.debilidad}}</td>
+
+              <td>
+                  <button type="button" class="btn btn-primary" (click)="CargarHeroes()">Actualizar</button>
+                  <button type="button" class="btn btn-secondary" (click)="EliminarHeroe(heroe.id)">Eliminar</button>
+              </td>
+              
           </tr>
-        </thead>
-        <tbody>
-            @for (heroe of listadoHeroes; track heroe.id) {            
-            <tr>
-          
-                <th scope="row">{{ heroe.id }}</th>
-                <td>{{ heroe.nombre }}</td>
-                <td>{{ heroe.poder }}</td>
-                <td>{{ heroe.universo }}</td>
-                <td>{{ heroe.debilidad}}</td>
-
-                <td>
-                    <button type="button" class="btn btn-primary" (click)="CargarHeroes()">Actualizar</button>
-                    <button type="button" class="btn btn-secondary" (click)="EliminarHeroe(heroe.id)">Eliminar</button>
-                </td>
-                
-            </tr>
-          }
-        </tbody>
-      </table>
+        }
+      </tbody>
+    </table>
 </div>
-
